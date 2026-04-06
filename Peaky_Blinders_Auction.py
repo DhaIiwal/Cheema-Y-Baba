@@ -1,16 +1,37 @@
 from platform import processor
 from Blinders_Auction_logo_art import logo
 print(logo)
-name = input("What is your name?")
-bid = int(input("what is your bid?: $"))
-other_bids = input("Are there any other bids?: Type \"yes\" or \"no\"").lower()
+def get_highest_bid(bids):
+    highest_bid = 0
+    winner =''
+    for bid in bids:
+        bid_amount = bids[bid]
+        if bids[bid] > highest_bid:
+            highest_bid = bids[bid]
+            winner = bid
+        print(f"The Highest Bid is {highest_bid} by {winner}")
+
 
 
 list_of_bids = {}
+is_game_on = True
+print("highest bid wins!")
 
-while other_bids == "yes":
+
+while is_game_on:
+    name = input("What is your name?")
+    bid = int(input("what is your bid?: $"))
+    other_bids = input("Are there any other bids?: Type \"yes\" or \"no\"").lower()
     list_of_bids[name] = bid
 
+    if other_bids == "no":
+        is_game_on = False
+        get_highest_bid(list_of_bids)
+        print("list_of_bids")
+    elif other_bids == "yes":
+        print("\n" * 67)
+    else:
+        print("Please enter either Yes or NO! R U slow?")
 print(list_of_bids)
 
 
