@@ -1,32 +1,41 @@
+from art import logo
 
-while True:
-    print("\nSimple Calculator")
-    print("Enter 'q' to quit")
+def add(num1, num2):
+    return num1 + num2
+def subtract(num1, num2):
+    return num1 - num2
+def multiply(num1, num2):
+    return num1 * num2
+def divide(num1, num2):
+    return num1 / num2
+def mod(num1, num2):
+    return num1 % num2
+operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide,
+    "%": mod
+}
+def calculator():
+    print(logo)
+    should_continue = True
+    num1 = float(input("What is the first number?: "))
 
-    num1 = input("First number: ")
-    if num1.lower() == 'q':
-        break
+    while should_continue:
+        for symbol in operations:
+            print(symbol)
+        operation_symbol = input("Pick an operation: ")
+        num2 = float(input("What is the next number?: "))
+        answer = operations[operation_symbol](num1, num2)
+        print(f"{num1} {operation_symbol} {num2} = {answer}")
 
-    op = input("Operator (+, -, *, /): ")
-    num2 = input("Second number: ")
+        choice = input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ")
 
-    try:
-        num1 = float(num1)
-        num2 = float(num2)
-
-        if op == '+':
-            print("Result:", num1 + num2)
-        elif op == '-':
-            print("Result:", num1 - num2)
-        elif op == '*':
-            print("Result:", num1 * num2)
-        elif op == '/':
-            if num2 == 0:
-                print("Cannot divide by zero")
-            else:
-                print("Result:", num1 / num2)
+        if choice == "y":
+            num1 = answer
         else:
-            print("Invalid operator")
-
-    except:
-        print("Invalid input, try again")
+            should_continue = False
+            print("\n" * 20)
+            calculator()
+calculator()
